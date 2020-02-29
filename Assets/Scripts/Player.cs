@@ -6,18 +6,37 @@ public class Player : MonoBehaviour
 {
     private RectTransform playerRect;
     private readonly float moveDistance = 5f;
-    // Start is called before the first frame update
+
     private void Start()
     {
         playerRect = this.GetComponent<RectTransform>();
     }
-
-    // Update is called once per frame
+    
     private void Update()
     {
+        Move();
+    }
+
+    private void Move()
+    {
+        var newX = playerRect.localPosition.x;
+        var newY = playerRect.localPosition.y;
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            playerRect.anchoredPosition = new Vector2(playerRect.localPosition.x, playerRect.localPosition.y + moveDistance);
+            newY += moveDistance;
         }
+        else if (Input.GetKey(KeyCode.DownArrow))
+        {
+            newY -= moveDistance;
+        }
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            newX += moveDistance;
+        }
+        else if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            newX -= moveDistance;
+        }
+        playerRect.anchoredPosition = new Vector2(newX, newY);
     }
 }
