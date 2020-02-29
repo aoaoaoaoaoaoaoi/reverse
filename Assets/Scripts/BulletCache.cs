@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class BulletCache : MonoBehaviour
 {
     [SerializeField] private Bullet bullet;
+    [SerializeField] private RectTransform background;
     public Stack<Bullet> bulletStack = new Stack<Bullet>();
     private Transform bulletRoot;
 
@@ -19,21 +20,30 @@ public class BulletCache : MonoBehaviour
     {
         if(bulletStack.Any())
         {
-            return bulletStack.Pop();
+            var bullet = bulletStack.Pop();
+            bullet.gameObject.SetActive(true);
+            return bullet;
         }
         return MakeBullet();
     }
 
     private Bullet MakeBullet()
     {
-        return Instantiate(bullet, this.gameObject.transform);
+        var newBullet = Instantiate(bullet, this.gameObject.transform);
+        newBullet.Initialize(this, background);
+        return newBullet;
     }
 
-    public void ReturnBullet(IEnumerable<Bullet> bulletList)
+    public void ReturnBullet(Bullet bullet)
     {
-        foreach (var bullet in bulletList)
+        if(bulletStack.Count() < 100)
         {
             bulletStack.Push(bullet);
+        }
+        else
+        {
+            Destroy(bullet.gameObject);
+            bullet = null;
         }
     }
 }

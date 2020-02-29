@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private Hp hp;
+    [SerializeField] private BulletCache bulletCache;
+    private readonly float shotInterval = 0.2f;
+    private float currentShotTime = 0f;
     private RectTransform playerRect;
     private readonly float moveDistance = 5f;
+    private OneShot oneShot;
 
     private void Start()
     {
         playerRect = this.GetComponent<RectTransform>();
+        oneShot = new OneShot();
     }
     
     private void Update()
     {
         Move();
+        Shot();
     }
 
     private void Move()
@@ -38,5 +45,27 @@ public class Player : MonoBehaviour
             newX -= moveDistance;
         }
         playerRect.anchoredPosition = new Vector2(newX, newY);
+    }
+
+    private void Shot()
+    {
+        currentShotTime += Time.deltaTime;
+        if(shotInterval < currentShotTime)
+        {
+            if (Input.GetKey(KeyCode.W))
+            {
+                currentShotTime = 0f;
+                oneShot.MakeOneShot(playerRect, bulletCache);
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.name == "Enemy")
+        {
+            
+        }
+        hp.Subtract();
     }
 }
