@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private Hp hp;
     [SerializeField] private BulletCache bulletCache;
+    [SerializeField] private Image gameOver;
+    public bool isGameOver { get; set; } = false;
     private readonly float shotInterval = 0.2f;
     private float currentShotTime = 0f;
     private RectTransform playerRect;
@@ -20,8 +23,11 @@ public class Player : MonoBehaviour
     
     private void Update()
     {
-        Move();
-        Shot();
+        if (!isGameOver)
+        {
+            Move();
+            Shot();
+        }
     }
 
     private void Move()
@@ -62,10 +68,11 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.name == "Enemy")
-        {
-            
-        }
         hp.Subtract();
+        if(collision.gameObject.name == "Enemy" || hp.CurrentHp <= 0)
+        {
+            gameOver.gameObject.SetActive(true);
+            isGameOver = true;
+        }
     }
 }

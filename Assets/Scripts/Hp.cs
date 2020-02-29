@@ -6,19 +6,19 @@ using UnityEngine;
 public class Hp : MonoBehaviour
 {
     [SerializeField] private List<RectTransform> hpList;
-    public int currentHp;
+    public int CurrentHp { get; private set; }
 
     private void Start()
     {
-        currentHp = hpList.Count();
+        CurrentHp = hpList.Count();
     }
 
     public void Subtract()
     {
-        currentHp--;
+        CurrentHp--;
         for (int i=0; i < hpList.Count(); ++i)
         {
-            hpList[i].gameObject.SetActive(i < currentHp);
+            hpList[i].gameObject.SetActive(i < CurrentHp);
         }
     }
 }

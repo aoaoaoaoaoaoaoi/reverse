@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class Uzumaki
 {
-    private readonly float fullAngle = 360f;
-    private float degInterval;
-    private float radius;
-    private float makeInterval;
-    private float speed;
+    protected readonly float fullAngle = 360f;
+    protected float degInterval;
+    protected float radius;
+    protected float makeInterval;
+    protected float speed;
 
-    public Uzumaki(float degInterval = 30f, float radius = 100f, float makeInteval = 0.5f, float speed = 2f)
+    public Uzumaki(float degInterval = 10f, float radius = 100f, float makeInteval = 0.2f, float speed = 1f)
     {
         this.degInterval = degInterval;
         this.radius = radius;
@@ -29,6 +29,7 @@ public class Uzumaki
                 var cos = Mathf.Cos(rad);
                 var sin = Mathf.Sin(rad);
                 var bullet = cache.GetBullet();
+                bullet.SwitchBulletImage(true);
                 bullet.BulletRect.anchoredPosition = new Vector2(center.anchoredPosition.x + radius * cos, center.anchoredPosition.y + radius * sin);
                 bullet.BulletRigidbody2D.velocity = (bullet.BulletRect.anchoredPosition - center.anchoredPosition).normalized * speed;
                 deg += degInterval;

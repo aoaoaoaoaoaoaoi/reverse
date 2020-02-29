@@ -636,6 +636,8 @@
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Score.cs" />
     <Compile Include="Assets\Scripts\Uzumaki.cs" />
+    <Compile Include="Assets\Scripts\UzumakiKai.cs" />
+    <Compile Include="Assets\Scripts\UzumakiKaiLeft.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Packages\com.unity.collab-proxy\Editor\Resources\Styles\CollabHistoryCommon.uss" />

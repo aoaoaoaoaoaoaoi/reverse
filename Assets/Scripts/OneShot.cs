@@ -9,7 +9,7 @@ public class OneShot
     private float distanceInterval;
     private int times;
 
-    public OneShot(float speed = 2f, float distanceInterval = 35f, int times = 5)
+    public OneShot(float speed = 4f, float distanceInterval = 35f, int times = 5)
     {
         this.speed = speed;
         this.distanceInterval = distanceInterval;
@@ -33,6 +33,7 @@ public class OneShot
         for (int i = 0; i < times; ++i)
         {
             var bullet = cache.GetBullet();
+            bullet.SwitchBulletImage(false);
             bullet.BulletRect.anchoredPosition = new Vector2(targetPoint, center.anchoredPosition.y + centerDistance);
             targetPoint += distanceInterval;
             bulletList.Add(bullet);
