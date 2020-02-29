@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ public class UzumakiKai : Uzumaki
         this.count = count;
     }
 
-    public IEnumerator MakeUzumakiKai(RectTransform center, BulletCache cache, int times)
+    public IEnumerator MakeUzumakiKai(RectTransform center, BulletCache cache, int times, Action action)
     {
         for (int i = 0; i < times; i++)
         {
@@ -36,5 +37,6 @@ public class UzumakiKai : Uzumaki
                 yield return new WaitForSeconds(makeInterval);
             }
         }
+        action?.Invoke();
     }
 }

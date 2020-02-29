@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Hp hp;
     [SerializeField] private BulletCache bulletCache;
+    [SerializeField] private RectTransform background;
     [SerializeField] private Image gameOver;
     public bool isGameOver { get; set; } = false;
     private readonly float shotInterval = 0.2f;
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour
         {
             Move();
             Shot();
+            Check();
         }
     }
 
@@ -63,6 +65,18 @@ public class Player : MonoBehaviour
                 currentShotTime = 0f;
                 oneShot.MakeOneShot(playerRect, bulletCache);
             }
+        }
+    }
+
+    private void Check()
+    {
+        if (playerRect.localPosition.x < -background.sizeDelta.x / 2
+            || background.sizeDelta.x / 2 < playerRect.localPosition.x
+            || playerRect.localPosition.y < -background.sizeDelta.y / 2
+            || background.sizeDelta.y / 2 < playerRect.localPosition.y)
+        {
+            gameOver.gameObject.SetActive(true);
+            isGameOver = true;
         }
     }
 

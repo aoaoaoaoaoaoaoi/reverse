@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,7 +20,7 @@ public class Uzumaki
         this.speed = speed;
     }
 
-    public IEnumerator MakeUzumaki(RectTransform center, BulletCache cache, int times)
+    public IEnumerator MakeUzumaki(RectTransform center, BulletCache cache, int times, Action action)
     {
         for(int i = 0;i < times; i++){
             var deg = 0f;
@@ -36,5 +37,6 @@ public class Uzumaki
                 yield return new WaitForSeconds(makeInterval);
             }
         }
+        action?.Invoke();
     }
 }
